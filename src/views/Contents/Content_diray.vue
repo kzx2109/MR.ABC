@@ -1,5 +1,4 @@
 <template>
-<!-- mt-[150px] mb-[293px] -->
     <div class="relative flex justify-start flex-col md:flex-row w-full h-full md:my-24 ">
         <div id="calendar" class="w-full md:w-1/3 h-full my-2">
             <div class="text-[30px] leading-[100px] border-b-4 border-white text-center text-white 
@@ -12,14 +11,14 @@
                 <div class="justify-items-centerplace-items-center w-full grid-cols-7 grid">
                     <div class="justify-center cursor-pointer w-[50px] md:w-[30px] xl:w-[50px] text-center text-[25px] md:text-[20px]  xl:text-[25px] font-semibold h-[50px] md:h-[30px] xl:h-[50px] leading-[60px] md:leading-9 xl:leading-[60px] items-center  text-slate-500" v-for="(item,index) in prev" :key="index">{{item}}</div>
                     <div class="justify-center cursor-pointer text-white  w-[50px] md:w-[30px] xl:w-[50px] text-center text-[25px] md:text-[20px]  xl:text-[25px] font-semibold h-[50px] md:h-[30px] xl:h-[50px] leading-[60px] md:leading-9 xl:leading-[60px] items-center hover:bg-indigo-400  hover:text-white hover:rounded-full"
-                    v-for="(item,index) in current  " :key="'current-'+index" :class="currentMonth(index)"  @click="clickfather()" >{{item}}</div>
+                    v-for="(item,index) in current  " :key="'current-'+index"  :class="currentMonth(index)"  @click="clickfather(index)">{{item}}</div>
                     <div class="justify-center cursor-pointer w-[50px] md:w-[30px] xl:w-[50px] text-center text-[25px] md:text-[20px]  xl:text-[25px] font-semibold h-[50px] md:h-[30px] xl:h-[50px] leading-[60px] md:leading-9 xl:leading-[60px] items-center text-slate-500" v-for="(item,index) in next" :key="'next-'+index">{{item}}</div>
                 </div>
             </div>
         </div> 
         <!-- :class="isShow==true?'':'hidden'" :isShow="isShow"  :class="isShow==true?'':'hidden'"  @isDisappear ="disappear"-->
         <div class="w-full md:w-2/3 md:mx-10 my-8 md:my-0">
-            <DirayText v-bind:father="isAppear" @chlid="passValue" :class="clickfathercss()"></DirayText>            
+            <DirayText :father="isAppear" :clickday="clickD" :clickmonth="clickM" :clickyear="clickY"  @chlid="passValue" :class="clickfathercss()"></DirayText>            
         </div>   
     </div>
 </template>
@@ -35,13 +34,22 @@ export default {
             year: "",
             month: "",
             week: ["日", "一", "二", "三", "四", "五", "六"],
-            isAppear:true
+            isAppear:true,
+            clickY:"",
+            clickM:"",
+            clickD:""
         };
     },
     methods: {
-        clickfather(){
-            this.isAppear=true
-            console.log(this.isAppear);
+        clickfather(data){
+            this.isAppear=true;
+            this.clickD=data+1;
+            console.log(this.clickD);
+            // console.log(this.isAppear);
+        },
+        putvalue(){
+            this.clickM=this.month;
+            this.clickY=this.year;
         },
         clickfathercss(){
             if(this.isAppear==true){
@@ -106,6 +114,7 @@ export default {
             let date = new Date();
             if (this.year == date.getFullYear() && this.month == date.getMonth() + 1 && this.isDay == data) {
                 return "active";
+                
             }
             return "";
         },
@@ -118,6 +127,7 @@ export default {
     mounted() {
         this.currentInfo();
         this.currentDay();
+        this.putvalue();
         
     },
     components: { DirayText }

@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { content, content } from "tailwindcss/defaultTheme";
 
 const userAxios = axios.create({
     baseURL:"http://127.0.0.1:8000/api",
@@ -29,4 +30,46 @@ export function getmemberData(contents){
     return userAxios.post(api,content).then((res)=>{
         return res;
     });
+}
+export function updateEmail(contents){
+    const api =`${apiUrl}/updatemail`;
+    const content={
+        memberId:contents.memberId,
+        memberEmail:contents.memberEmail,
+        // memberPassword:contents.memberPassword,
+        // memberGender:contents.memberGender,
+    };
+    return userAxios.post(api,content).then((res)=>{
+        return res;
+    });
+}
+export function updateGender(contents){
+    const api=`${apiUrl}/updategender`;
+    const content={
+        memberId:contents.memberId,
+        memberGender:contents.memberGender
+    };
+    return userAxios.post(api,content).then((res)=>{
+        return res;
+    })
+}
+export function getmemberPassword(contents){
+    const api = `${apiUrl}/getmemberpassword`;
+    const content={
+        memberId:contents.memberId,
+        memberPassword:contents.memberPassword
+    };
+    return userAxios.post(api,content).then((res)=>{
+        return res;
+    })
+}
+export function updatePassword(contents){
+    const api =`${apiUrl}/updatepassword`;
+    const content={
+        memberId:contents.memberId,
+        memberPassword:contents.memberPassword
+    };
+    return userAxios.post(api,content).then((res)=>{
+        return res;
+    })
 }

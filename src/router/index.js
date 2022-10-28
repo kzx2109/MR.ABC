@@ -12,6 +12,8 @@ import Diray from '../views/Diray.vue'
 import Practice from '../views/PracticeChart.vue'
 import Situation from '../views/SituationChart.vue'
 import Shadowing from '../views/ShadowingChart.vue'
+import checkPassword from '../views/Password/checkPassword.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -19,6 +21,12 @@ const routes = [
     path: '/situationchart',
     name: 'situationchart',
     component:Situation
+  },
+
+  {
+    path: '/checkpassword',
+    name: 'checkpassword',
+    component:checkPassword
   },
   {
     path: '/shadowingchart',

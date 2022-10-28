@@ -3,7 +3,7 @@
     <div class="relative  w-full md:w-2/3 h-full flex justify-center items-center" >
         <div class="bg-[#5F758A] w-full h-[350px] md:h-[500px] flex-col flex"  :class=" this.father==false?'hidden':''">
                 <div class="flex w-full h-1/6">
-                    <div class="w-1/2 h-full p-4 text-lg font-black">2022/09/25</div>
+                    <div class="w-1/2 h-full p-4 text-lg font-black">2022/10/18</div>
                     <div class="w-1/2 h-full flex justify-end" >  
                         <svg xmlns="http://www.w3.org/2000/svg" @click="clickchild()"  fill="currentColor" class="w-14 h-14 cursor-pointer bi bi-x" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/> </svg>
                     </div>
@@ -47,7 +47,16 @@ export default {
     props: {
         father: {
             default: Boolean
-        }
+        },
+        clickday:{
+            default:String
+        },
+        clickmonth:{
+            default:String
+        },
+        clickyear:{
+            default:String
+        }  
     },
     data() {
         return {

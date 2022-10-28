@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center my-8 xl:my-12 2xl:my-20">
-        <div   class="w-4/5 xl:w-2/3 h-full relative flex flex-col bg-[#76767681] rounded-md ">
+        <div  class="w-4/5 xl:w-2/3 h-full relative flex flex-col bg-[#76767681] rounded-md ">
             <div class="m-2 px-2 py-4 text-center md:text-left text-[#9dccf7] text-base md:text-lg  border-b-2">My Profile</div>
             <!--"-->
             <!-- Account {item.memberAccount}}v-for="item in mData" :key="item.ID"-->
@@ -13,16 +13,23 @@
                 </div>
                 <div class="w-2/4 h-full ">
                     <div class="w-2/3 flex justify-end">
-                        <div class="text-white text-sm md:text-base px-2">{{this.memberEmail}}</div>
+                        <span v-if="!this.isEdit" class="text-white text-sm md:text-base px-2">{{this.memberEmail}}</span>
+                        <input type="email" v-else class="form-control flex justify-items-center w-full h-full px-3 py-1.5 text-base
+                                              font-normal  text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300
+                                              rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                              focus:outline-none" v-model="memberEmail">
                     </div>
                 </div>
-                <div class="w-1/4"></div>
+                <div class="w-1/4">
+                    <svg v-if="!isEdit" @click="isEdit=!isEdit" class="cursor-pointer w-6 h-6  hover:text-[#9dccf7] text-white" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M13.0207 5.82839L15.8491 2.99996L20.7988 7.94971L17.9704 10.7781M13.0207 5.82839L3.41405 15.435C3.22652 15.6225 3.12116 15.8769 3.12116 16.1421V20.6776H7.65669C7.92191 20.6776 8.17626 20.5723 8.3638 20.3847L17.9704 10.7781M13.0207 5.82839L17.9704 10.7781" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/> </svg>
+                    <svg v-else xmlns="http://www.w3.org/2000/svg" @click="upEmail()" class="cursor-pointer w-6 h-6 bi bi-check2 text-white" fill="currentColor"  viewBox="0 0 16 16"> <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/> </svg>
+                </div>
             </div>
             <!-- PW -->
-            <Password_file :getPasswd="memberPassword">
+            <Password_file>
             </Password_file>
             <!-- Gender -->
-            <Gender_file :getGender="memberGender">
+            <Gender_file :getGender="memberGender" @updateitem="updateItem" >
             </Gender_file>
             <!-- Title -->
             <div class="w-full h-1/6 flex flex-row justify-center items-center my-5">
@@ -60,7 +67,8 @@ import Button from '../Button.vue';
 import Gender_file from '../Profile/Gender_file.vue';
 import BrithDay_file from '../Profile/BrithDay_file.vue';
 import Password_file from '../Profile/Password_file.vue';
-import { getmemberData } from '@/service/member';
+// import Bus from '@/service/bus';
+import { getmemberData ,updateEmail,updateGender} from '@/service/member';
 export default {
     // props:{
     //     item:Object
@@ -76,7 +84,8 @@ export default {
             memberPassword:"",
             memberGender:"",
             memberTitle:"",
-            memberDCount:''
+            memberDCount:'',
+            getgenderitem:''
         }
     },
     methods:{
@@ -85,17 +94,39 @@ export default {
                 memberId:this.memberId
             }).then((res)=>{
                 this.mData = res.data;
-                // console.log(this.mData[0].memberDCount);
-                this.memberEmail=this.mData[0].memberEmail;
-                this.memberAccount=this.mData[0].memberAccount;
-                this.Password=this.mData[0].memberPassword;
-                this.memberGender=this.mData[0].memberGender;
-                this.memberTitle=this.mData[0].memberTitle;
-                this.memberDCount=this.mData[0].memberDCount;
+                console.log(res);
+                this.memberEmail=this.mData.memberEmail;
+                this.memberAccount=this.mData.memberAccount;
+                this.memberGender=this.mData.memberGender;
+                this.memberTitle=this.mData.memberTitle;
+                this.memberDCount=this.mData.memberDCount;
             })
-        }
+        },
+        upEmail(){
+            this.isEdit=!this.isEdit;
+            // console.log(this.memberEmail);
+            updateEmail({
+                memberId:this.memberId,
+                memberEmail:this.memberEmail
+            }).then((res)=>{
+                // this.memberEmail=res.memberEmail;
+            });
+        },
+        updateItem(value){
+            this.memberGender=value;
+            updateGender({
+                memberId:this.memberId,
+                memberGender:this.memberGender
+            }).then((res)=>{
+                console.log(res);
+                
+            })
+        },
+        // elementPassword(){
+        //     Bus.$emit('val',this.memberPassword);
+        // }
     },
-    mounted(){
+    mounted(){        
         this.memberData();
     }
 }

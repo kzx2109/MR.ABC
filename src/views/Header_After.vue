@@ -20,8 +20,8 @@
             <div class="relative text-xl font-bold">
                 <div v-show="show" class="absolute right-0 py-2 mt-12 rounded-md shadow-xl w-44">
                     <div class="text-white flex text-xs flex-col p-2 justify-start font-bold">
-                        <div >Kitty</div>
-                        <div>EMI Student</div>
+                        <div>{{this.memberAccount.charAt(0).toUpperCase()+this.memberAccount.slice(1)}}</div>
+                        <div>{{this.memberTitle}}</div>
                     </div>
                     <router-link to="/home" class=" block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100">
                     Practice chart
@@ -45,15 +45,16 @@
 </template>
 
 <script>
-import { members } from '@/service/member';
+import { members,getmemberData } from '@/service/member';
 export default {
     data(){
         return{
             show:false,
-            memberData:[],
+            Data:[],
             memberAccount:'',
             memberId:0,
-            memberTitle:''
+            memberTitle:'',
+            
         }
     },
     methods:{
@@ -61,14 +62,19 @@ export default {
             localStorage.clear()
             this.$router.push('/');
         },
-        getmemberData(){
-            members().then((res)=>{
-                this.memberData=res.data;
-            });
+        memberData(){
+            getmemberData({
+                memberId:localStorage.getItem("memberId")
+            }).then((res)=>{
+                this.memberAccount=res.data.memberAccount;
+                this.memberTitle=res.data.memberTitle;
+                
+            })
         },
+
     },
     mounted(){
-       
+       this.memberData();
     }
 
 }
