@@ -14,13 +14,13 @@
                 <!-- <div class="md:hidden text-white flex text-xs flex-col p-2 justify-start font-bold">
                     <div >Kitty</div>
                     <div>EMI Student</div>
-                </div> -->
+                </div> .charAt(0).toUpperCase()+this.memberAccount.slice(1) -->
                 
             </div>
             <div class="relative text-xl font-bold">
                 <div v-show="show" class="absolute right-0 py-2 mt-12 rounded-md shadow-xl w-44">
                     <div class="text-white flex text-xs flex-col p-2 justify-start font-bold">
-                        <div>{{this.memberAccount.charAt(0).toUpperCase()+this.memberAccount.slice(1)}}</div>
+                        <div>{{this.memberAccount}}</div>
                         <div>{{this.memberTitle}}</div>
                     </div>
                     <router-link to="/home" class=" block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100">

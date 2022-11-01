@@ -73,3 +73,13 @@ export function updatePassword(contents){
         return res;
     })
 }
+export function insertMember(contents){
+    const api =`${apiUrl}/insertmember`;
+    const content = {
+        memberAccount:contents.memberAccount,
+        memberPassword:contents.memberPassword
+    };
+    return userAxios.post(api,content).then((res)=>{
+        return res;
+    })
+}
