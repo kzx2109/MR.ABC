@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="w-full h-1/2">
-                <div class="cursor-pointer px-2 py-2 text-lg hover:bg-indigo-400 hover:translate-x-6 hover:shadow-xl rounded-md "><router-link :to="'/home'">Practice Chart</router-link></div>
+                <div class="cursor-pointer px-2 py-2 md:text-base xl:text-lg hover:bg-indigo-400 hover:translate-x-6 hover:shadow-xl rounded-md "><router-link :to="'/home'">Practice Chart</router-link></div>
                 <div class="px-2 py-2 text-lg  hover:bg-indigo-400 hover:translate-x-6 hover:shadow-xl cursor-pointer rounded-md "><router-link :to="'/profile'">Profile</router-link></div>
                 <div class="px-2 py-2 text-lg  hover:bg-indigo-400 hover:translate-x-6 hover:shadow-xl cursor-pointer rounded-md "><router-link :to="'/diray'">Diary</router-link></div>
                 <div class="px-2 py-2 text-lg  hover:bg-indigo-400 hover:translate-x-6 hover:shadow-xl cursor-pointer rounded-md "><router-link :to="'/badge'">Badge</router-link></div>

@@ -6,11 +6,19 @@
 
 <script>
 import Chart from 'chart.js/auto';
+import {getunitNum} from '@/service/mempractice';
 export default {
-    mounted(){
-        // console.log('component mounted.');
-        const ctx = document.getElementById('situ');
-        const situ = new Chart(ctx, {
+    data(){
+        return {
+            memberId:localStorage.getItem("memberId"),
+            kindId:2,
+            num:0
+        }
+    },
+    methods:{
+        getchart(){
+            const ctx = document.getElementById('situ');
+            const situ = new Chart(ctx, {
             type: 'pie',
             data: {
                  labels: [
@@ -19,7 +27,7 @@ export default {
                 ],
                 datasets: [{
                     label: 'My First Dataset',
-                    data: [70,30],
+                    data: [this.num,100-this.num],
                     backgroundColor: [
                     'rgb(60, 83, 153)',
                     'rgb(104, 108, 120)',
@@ -29,7 +37,23 @@ export default {
                 
             },
         });
-       situ;
+            return situ;
+        },
+        getNum(){
+            getunitNum({
+                memberId:this.memberId,
+                kindId:this.kindId
+            }).then((res)=>{
+                this.num=res.data*10;
+                console.log(this.num);
+                this.getchart();
+            })
+        }
+    },
+    mounted(){
+        // this.getchart();
+        this.getNum();
+        
     }
 }
 </script>

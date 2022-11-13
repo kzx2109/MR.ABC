@@ -38,11 +38,7 @@
                         </template>
                     </Frame_Practice>
                 </div>
-                
-                
             </div>
-           
-           
         </div>
     </div>
 </template>
@@ -56,6 +52,7 @@ import PieChart_situ from '../Chart/pieChart_situ.vue';
 import BarChart from '../Chart/BarChart_sh.vue';
 import LineChart_Dayuse from '../Chart/LineChart_Dayuse.vue';
 import LineChart_GradeAvg from '../Chart/LineChart_GradeAvg.vue';
+
 
 export default {
     components: { Frame_Practice, Dayuse, GradeAvg, PieChart_shadow, PieChart_situ, BarChart, PieChart_shadow, PieChart_situ, Frame_Practice, PieChart_shadow, Frame_Practice, PieChart_shadow, PieChart_situ, LineChart_Dayuse, LineChart_GradeAvg }
