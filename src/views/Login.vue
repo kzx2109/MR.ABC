@@ -2,10 +2,7 @@
     <div class="w-full h-full flex flex-col ">
         <Haeder ></Haeder>
         <Particles></Particles>
-        <!-- <FrameVue 
-        data-aos-easing="ease-in-back" data-aos-anchor-placement="top-center" data-aos-duration="1000"></FrameVue> -->
-       <!-- <Frame></Frame> -->
-       <Frame_Login ></Frame_Login>
+        <Frame_Login ></Frame_Login>
     </div>
 </template>
 

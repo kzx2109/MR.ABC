@@ -5,7 +5,7 @@
                 <div class="w-full h-1/2">
                     <Frame_Practice >
                         <template #title >
-                            Average Score by Shadowing Unit 
+                            Shadowing completion of each unit
                         </template>
                         <template #chart>
                            <BarChart_sh></BarChart_sh>

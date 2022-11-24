@@ -11,20 +11,20 @@
                 <div class="justify-items-centerplace-items-center w-full grid-cols-7 grid">
                     <div class="justify-center cursor-pointer w-[50px] md:w-[30px] xl:w-[50px] text-center text-[25px] md:text-[20px]  xl:text-[25px] font-semibold h-[50px] md:h-[30px] xl:h-[50px] leading-[60px] md:leading-9 xl:leading-[60px] items-center  text-slate-500" v-for="(item,index) in prev" :key="index">{{item}}</div>
                     <div class="justify-center cursor-pointer text-white  w-[50px] md:w-[30px] xl:w-[50px] text-center text-[25px] md:text-[20px]  xl:text-[25px] font-semibold h-[50px] md:h-[30px] xl:h-[50px] leading-[60px] md:leading-9 xl:leading-[60px] items-center hover:bg-indigo-400  hover:text-white hover:rounded-full"
-                    v-for="(item, index) in current  " :key="'current-'+index"  :class="currentMonth(index)"  @click="clickfather(index)">{{item}}</div>
+                    v-for="(item, index) in current" :key="'current-'+index"  :class="currentMonth(index)"  @click="clickfather(index)">{{item}}</div>
                     <div class="justify-center cursor-pointer w-[50px] md:w-[30px] xl:w-[50px] text-center text-[25px] md:text-[20px]  xl:text-[25px] font-semibold h-[50px] md:h-[30px] xl:h-[50px] leading-[60px] md:leading-9 xl:leading-[60px] items-center text-slate-500" v-for="(item,index) in next" :key="'next-'+index">{{item}}</div>
                 </div>
             </div>
         </div> 
         <!-- :class="isShow==true?'':'hidden'" :isShow="isShow"  :class="isShow==true?'':'hidden'"  @isDisappear ="disappear"-->
         <div class="w-full md:w-2/3 md:mx-10 my-8 md:my-0">
-            <DirayText  @updatefeedback="updateFeedBack"  :father="isAppear" :clickdate="clickDate" :feedback="diaryFeedback" :star="diaryStar" :clickday="clickD" :clickmonth="clickM" :datechoose="Datechoose" :clickyear="clickY"  @chlid="passValue" :class="clickfathercss()"></DirayText>            
+            <DirayText :clickc="clickcheck" @updatefeedback="updateFeedBack" :father="isAppear" :clickdate="clickDate" :feedback="diaryFeedback" :star="diaryStar" :clickday="clickD" :clickmonth="clickM" :datechoose="Datechoose" :clickyear="clickY"  @chlid="passValue" :class="clickfathercss()"></DirayText>            
         </div>   
     </div>
 </template>
 
 <script>
-import { updateFeedback,getDiary } from '@/service/diary';
+import { updateFeedback,getDiary,insertdiary } from '@/service/diary';
 import DirayText from '../DirayText.vue'
 export default {
     data() {
@@ -37,38 +37,46 @@ export default {
             week: ["日", "一", "二", "三", "四", "五", "六"],
             isAppear:true,
             Datechoose:false,
-            clickY:"",
-            clickM:"",
-            clickD:"",
+            clickY:0,
+            clickM:0,
+            clickD:0,
             clickDate:"",
             memberId:localStorage.getItem("memberId"),
             diaryFeedback:"",
             diaryDate:"",
-            diaryStar:0
+            diaryStar:0,
+            clickcheck:false
             
         };
     },
     methods: {
         getToDay(){
-            let date = new Date;
+            const date = new Date;
             this.clickD=date.getDate();
             this.clickM=date.getMonth()+1;
             this.clickY=date.getFullYear();
             this.clickDate=this.clickY+"-"+this.clickM+'-'+this.clickD;
+            // console.log(date.getDay());
+            console.log(this.clickD);
         },
         clickfather(data){
-            this.clickD=data+1;
+            if(this.clickcheck==false){
+                const date = new Date;
+                this.clickD=date.getDate();
+            }else{
+                this.clickD=data+1;
+            }
+             
             this.clickM=this.month;
             this.clickY=this.year;
             this.clickDate=this.clickY+"-"+this.clickM+'-'+this.clickD;
+            // console.log(this.clickDate);
             this.isAppear=true;
-            console.log(this.clickDate);
-            
+            this.clickcheck=true;
             getDiary({
                 memberId:this.memberId,
                 diaryDate:this.clickDate
             }).then((res)=>{
-                console.log(res.data.diaryStar);
                 if(res.data==0){
                     this.diaryStar=0;
                     this.diaryFeedback=""
@@ -77,8 +85,15 @@ export default {
                     this.diaryFeedback=res.data.diaryFeedback;
                 }
             })
-    
-            
+        },
+        insert(){
+            insertdiary({
+                memberId:this.memberId,
+                diaryDate:this.clickDate,
+                diaryFeedback:this.diaryFeedback
+            }).then((res)=>{
+
+            })
         },
         clickfathercss(){
             if(this.isAppear==true){
@@ -160,6 +175,15 @@ export default {
                 diaryFeedback:this.diaryFeedback
             }).then((res)=>{
                 console.log(res);
+                if(res.data=='fail'){
+                    insertdiary({
+                        memberId:this.memberId,
+                        diaryDate:this.clickDate,
+                        diaryFeedback:this.diaryFeedback
+                    }).then((res)=>{
+                        console.log(res);
+                    })
+                }
             })
         },
     },
@@ -167,6 +191,11 @@ export default {
         this.currentInfo();
         this.currentDay();
         this.getToDay();
+        // if(this.clickcheck==false){
+        //      this.getToDay();
+        // }
+        this.clickfather(this.clickDate);
+        
     },
     components: { DirayText }
 }

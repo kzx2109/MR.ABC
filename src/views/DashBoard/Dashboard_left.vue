@@ -9,6 +9,7 @@
                 <div class="w-2/3 flex justify-center flex-col h-full">
                     <div class="p-2 text-xl font-black">{{this.Account}}</div>
                     <div class="px-2 text- ">{{this.Title}}</div>
+                    <!-- <div class="px-2 text- ">New Student</div>  -->
                 </div>
             </div>
             <div class="w-full h-1/2">

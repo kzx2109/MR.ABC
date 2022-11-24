@@ -45,3 +45,14 @@ export function updateFeedback(contents){
         return res;
     })
 }
+export function insertdiary(contents){
+    const api = `${apiUrl}/insertdiary`;
+    const content = {
+        memberId:contents.memberId,
+        diaryDate:contents.diaryDate,
+        diaryFeedback:contents.diaryFeedback
+    };
+    return userAxios.post(api,content).then((res)=>{
+        return res;
+    })
+}

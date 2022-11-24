@@ -6,27 +6,55 @@
 
 <script>
 import Chart from 'chart.js/auto';
+import { getTimes } from '@/service/mempractice';
 export default {
-    mounted(){
-        const ctx = document.getElementById('Dayuse');
-        const Dayuse = new Chart(ctx, {
-            // labels : Utils.months({count: 7}),
-            type: 'line',
-            data: {
-                labels: ['2022/09/19','2022/09/20','2022/09/21','2022/09/22','2022/09/23','2022/09/24','2022/09/25'],
-                datasets: [{
-                    label: 'Total Practice Time by Day',
-                    data: [0,1,1,2,2,3,3,4,7],
-                    fill: false,
-                    borderColor: 'rgb(25, 45, 105)',
-                    tension: 0.1,
-                    backgroundColor:'rgb(4, 15, 48)'
+    data(){
+        return{
+            memberId:localStorage.getItem('memberId'),
+            count:[],
+            date:[]
 
-                }]
-            },
-        });
-        Dayuse;
+        }
+    },
+    methods:{
+        Times(){
+            getTimes({
+                memberId:this.memberId
+            }).then((res)=>{
+                console.log(res.data);
+                for(let i =0;i<res.data.length;i++){
+                    this.count[i]=res.data[i].count;
+                    this.date[i]=res.data[i].practiceDate.split('-').join('/');
+                  
+                } 
+                this.LineChart();
+            })
+        },
+        LineChart(){
+            const ctx = document.getElementById('Dayuse');
+            const Dayuse = new Chart(ctx, {
+                // labels : Utils.months({count: 7}),
+                type: 'line',
+                data: {
+                    labels: [this.date[6],this.date[5],this.date[4],this.date[3],this.date[2],this.date[1],this.date[0],],
+                    datasets: [{
+                        label: 'Total Practice Time by Day',
+                        data: [this.count[6],this.count[5],this.count[4],this.count[3],this.count[2],this.count[1],this.count[0]],
+                        fill: false,
+                        borderColor: 'rgb(25, 45, 105)',
+                        tension: 0.1,
+                        backgroundColor:'rgb(4, 15, 48)'
+                    }]
+                },
+            });
+            return Dayuse;
+        }
+    },
+    mounted(){
+        // this.LineChart();
+        this.Times();
     }
+        
 
 }
 </script>

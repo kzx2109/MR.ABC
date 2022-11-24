@@ -3,6 +3,8 @@
         <div class="w-1/2  md:w-1/3 h-full text-xl font-bold items-center   text-[#FFFFFF]">
             <div class="w-full md:w-1/2 mx-2 h-full flex  items-center">
                 <img class="w-28 md:w-36" src="@/assets/LOGO-no.png">
+                <!-- <img class="w-28 md:w-36" src="@/assets/Holo1.png"> -->
+
             </div>
         </div>
         <div class="w-2/3 h-full items-center  mx-4  flex  flex-row justify-end">

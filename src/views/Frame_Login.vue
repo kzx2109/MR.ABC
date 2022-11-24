@@ -9,8 +9,8 @@
                 <div class="text-[#9dccf7] font-black text-base xl:text-xl m-2 md:m-4">Login</div>
                 <div class="flex flex-col justify-center items-center my-2">
                     <input type="text" placeholder="帳號" v-model="memberAccount"  class=" focus:border-white focus:outline-none w-4/5 xl:w-3/4  h-12 md:h-14 xl:h-16 my-2 xl:my-8 rounded-md bg-transparent border-2 text-[#cacaca] pl-4 border-[#cacaca]">
-                    <input type="password" placeholder="密碼" v-model="memberPassword"  class=" focus:border-white focus:outline-none w-4/5 xl:w-3/4 h-12 md:h-14 xl:h-16 my-8 rounded-md bg-transparent border-2 text-[#cacaca] pl-4 border-[#cacaca]">
-                    <div  @click="AccountLogin()" class="hover:opacity-80 w-4/5 xl:w-3/4 h-12 md:h-14 xl:h-16 mt-3 mb-10 bg-[#9CB3C8] rounded-lg flex justify-center items-center text-lg font-bold cursor-pointer" >登入</div>
+                    <input v-on:keyup.enter="AccountLogin()" type="password" placeholder="密碼" v-model="memberPassword"  class=" focus:border-white focus:outline-none w-4/5 xl:w-3/4 h-12 md:h-14 xl:h-16 my-8 rounded-md bg-transparent border-2 text-[#cacaca] pl-4 border-[#cacaca]">
+                    <div   @click="AccountLogin()" class="hover:opacity-80 w-4/5 xl:w-3/4 h-12 md:h-14 xl:h-16 mt-3 mb-10 bg-[#9CB3C8] rounded-lg flex justify-center items-center text-lg font-bold cursor-pointer" >登入</div>
                 </div>
                 <div class="w-full h-full flex">
                     <div class="w-1/3 h-full m-3">

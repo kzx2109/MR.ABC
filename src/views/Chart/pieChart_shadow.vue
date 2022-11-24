@@ -23,8 +23,8 @@ export default {
             }).then((res)=>{
                 // this.read=res
                 this.num=res.data.toString();
-                this.num=this.num*10
-                // console.log(this.num);
+                this.num=this.num/15*100
+                console.log(this.num);
                 this.getchart();
             })
         },

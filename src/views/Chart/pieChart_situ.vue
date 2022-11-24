@@ -44,7 +44,7 @@ export default {
                 memberId:this.memberId,
                 kindId:this.kindId
             }).then((res)=>{
-                this.num=res.data*10;
+                this.num=res.data/15*100;
                 console.log(this.num);
                 this.getchart();
             })
